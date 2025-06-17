@@ -11,7 +11,7 @@ export default function Category() {
   return (
     <section
       dir="rtl"
-      className="py-20 px-4 md:px-16 bg-gradient-to-b from-[#fff9f6] to-[#f5f5f5] text-right font-arabic"
+      className="py-20 px-4 sm:px-8 md:px-16 bg-gradient-to-b from-[#fff9f6] to-[#f5f5f5] text-right font-arabic"
     >
       <div className="max-w-screen-2xl mx-auto">
         {/* Section Heading */}
@@ -38,7 +38,7 @@ export default function Category() {
         </motion.p>
 
         {/* Mobile: Horizontal Scroll */}
-        <div className="flex gap-5 overflow-x-auto md:hidden no-scrollbar scroll-smooth pb-2">
+        <div className="flex gap-5 overflow-x-auto md:hidden no-scrollbar scroll-smooth pb-4">
           {categories.map((cat, i) => (
             <motion.div
               key={i}
@@ -46,7 +46,7 @@ export default function Category() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="w-[75%] max-w-[300px] h-48 rounded-xl overflow-hidden relative flex-shrink-0 group shadow-lg bg-white cursor-pointer"
+              className="w-[80%] max-w-[340px] h-52 rounded-xl overflow-hidden relative flex-shrink-0 group shadow-lg bg-white cursor-pointer"
             >
               <img
                 src={cat.image}
@@ -61,8 +61,8 @@ export default function Category() {
           ))}
         </div>
 
-        {/* Desktop: Grid View */}
-        <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-12">
+        {/* Desktop: Grid Layout */}
+        <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8 mt-12">
           {categories.map((cat, i) => (
             <motion.div
               key={i}
@@ -70,7 +70,7 @@ export default function Category() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl group cursor-pointer border border-[#e0d4c7] hover:shadow-2xl transition-all duration-500 bg-white"
+              className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden shadow-xl group cursor-pointer border border-[#e0d4c7] hover:shadow-2xl transition-all duration-500 bg-white"
             >
               <img
                 src={cat.image}
