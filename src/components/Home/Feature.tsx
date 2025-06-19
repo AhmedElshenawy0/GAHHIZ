@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import MainBtn from "../global/MainBtn";
 
 export default function BedroomSection() {
   return (
@@ -6,6 +7,29 @@ export default function BedroomSection() {
       dir="rtl"
       className="bg-[#f3f4f6] py-20 px-4 sm:px-10 md:px-20 font-arabic"
     >
+      <div className="max-w-5xl mx-auto mb-12 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-5xl font-extrabold text-[#3e2723] mb-4 leading-tight"
+        >
+          مجموعة غرف النوم الجديدة
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-gray-700 text-lg leading-relaxed"
+        >
+          نقدم لك تشكيلة متكاملة من غرف النوم الحديثة التي توفر أقصى درجات
+          الراحة، مصممة بذوق رفيع لتناسب مختلف المساحات والأنماط. مصممة بذوق
+          رفيع لتناسب مختلف المساحات والأنماط.
+        </motion.p>
+      </div>
+
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
         {/* Text Content */}
         <motion.div
@@ -15,9 +39,9 @@ export default function BedroomSection() {
           viewport={{ once: true }}
           className="w-full md:w-1/2 text-right"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#4e342e] mb-4">
+          <h3 className="text-2xl md:text-3xl font-bold text-[#4e342e] mb-4">
             غرفة نوم بتصميم عصري
-          </h2>
+          </h3>
           <p className="text-gray-700 text-lg leading-relaxed mb-6">
             استمتع بالراحة والفخامة مع غرفة النوم الحديثة التي تجمع بين الأناقة
             والعملية. صممت لتوفر لك تجربة نوم مريحة وبيئة مثالية للاسترخاء بعد
@@ -45,6 +69,11 @@ export default function BedroomSection() {
             className="w-full h-auto object-contain relative"
           />
         </motion.div>
+      </div>
+
+      {/* Button Below Section */}
+      <div className="text-center mt-12 relative">
+        <MainBtn text="إستعرض المجموعة" />
       </div>
     </section>
   );
