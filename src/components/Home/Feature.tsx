@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function LightSoundDecosSection() {
+export default function BedroomSection() {
   return (
     <section
       dir="rtl"
@@ -16,18 +16,18 @@ export default function LightSoundDecosSection() {
           className="w-full md:w-1/2 text-right"
         >
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#4e342e] mb-4">
-            LightSound DECOS
+            غرفة نوم بتصميم عصري
           </h2>
           <p className="text-gray-700 text-lg leading-relaxed mb-6">
-            استمتع بتجربة ضوئية وصوتية مميزة مع منتج LightSound DECOS الذي يجمع
-            بين التصميم العصري والتكنولوجيا الذكية. مثالي لغرف النوم أو غرف
-            المعيشة حيث يضيف لمسة أنيقة وأجواء مريحة من الإضاءة والموسيقى.
+            استمتع بالراحة والفخامة مع غرفة النوم الحديثة التي تجمع بين الأناقة
+            والعملية. صممت لتوفر لك تجربة نوم مريحة وبيئة مثالية للاسترخاء بعد
+            يوم طويل.
           </p>
           <ul className="list-disc list-inside text-gray-600 text-base space-y-2">
-            <li>إضاءة LED متعددة الألوان قابلة للتعديل</li>
-            <li>مكبر صوت مدمج بتقنية البلوتوث</li>
-            <li>تصميم مدمج يناسب جميع المساحات</li>
-            <li>مصنوع من خامات عالية الجودة</li>
+            <li>سرير مزدوج بإطار خشبي فاخر</li>
+            <li>خزانة ملابس واسعة ذات أبواب انزلاقية</li>
+            <li>إضاءة ليلية مدمجة لراحة إضافية</li>
+            <li>مرايا أنيقة وطاولة زينة بتصميم متناغم</li>
           </ul>
         </motion.div>
 
@@ -41,7 +41,7 @@ export default function LightSoundDecosSection() {
         >
           <img
             src="/—Pngtree—chair_5642351.png"
-            alt="LightSound DECOS"
+            alt="غرفة نوم عصرية"
             className="w-full h-auto object-contain relative"
           />
         </motion.div>
