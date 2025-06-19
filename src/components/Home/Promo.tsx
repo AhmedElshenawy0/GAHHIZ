@@ -7,7 +7,7 @@ const features = [
   "مصنوع من خامات عالية الجودة",
 ];
 
-export default function LightSoundDecosSection() {
+export default function Promo() {
   return (
     <section
       dir="rtl"
