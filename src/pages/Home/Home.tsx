@@ -4,7 +4,7 @@ import LightSoundDecosSection from "../../components/Home/Feature";
 import Hero from "../../components/Home/Hero";
 import Offers from "../../components/Home/Offers";
 import Promo from "../../components/Home/Promo";
-import Showcase from "../../components/Home/ShowCase";
+import ShowCase from "../../components/Home/ShowCase";
 
 const Home = () => {
   return (
@@ -16,7 +16,7 @@ const Home = () => {
       <Offers />
       <Promo />
       <Banner />
-      <Showcase />
+      <ShowCase />
       <LightSoundDecosSection />
     </div>
   );
