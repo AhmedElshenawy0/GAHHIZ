@@ -1,20 +1,20 @@
 const Banner = () => {
   return (
-    <div className="relative h-screen bg-[#f3f4f6] mx-10 mb-6">
+    <div className="relative h-screen bg-[#f3f4f6]">
       {/* Background video */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+        className="absolute inset-0 w-full h-full object-cover"
       >
         <source src="/5089243-uhd_4096_2160_25fps.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50 rounded-2xl" />
+      <div className="absolute inset-0 bg-black/50" />
 
       {/* Centered text */}
       <div className="relative z-10 flex items-center justify-center h-full px-4 md:px-16 text-center">

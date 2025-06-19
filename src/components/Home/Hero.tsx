@@ -1,5 +1,4 @@
 import { useEffect, useState, useMemo } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export default function Hero() {
@@ -17,8 +16,6 @@ export default function Hero() {
   const [loadedImages, setLoadedImages] = useState(new Set());
 
   const next = () => setIndex((prev) => (prev + 1) % images.length);
-  const prev = () =>
-    setIndex((prev) => (prev - 1 + images.length) % images.length);
 
   useEffect(() => {
     const interval = setInterval(next, 8000);
@@ -39,7 +36,7 @@ export default function Hero() {
   return (
     <div
       dir="rtl"
-      className="relative min-h-100vh overflow-hidden text-white font-arabic"
+      className="relative h-[calc(100vh-150px)] md:min-h-[calc(100vh-36px)] overflow-hidden text-white font-arabic"
     >
       {/*Background slider images*/}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -57,20 +54,6 @@ export default function Hero() {
         ))}
         <div className="absolute inset-0 bg-black/50 z-20" />
       </div>
-
-      {/* Arrows */}
-      <button
-        onClick={prev}
-        className="absolute right-4 top-1/2 z-30 transform -translate-y-1/2 text-white bg-black/30 hover:bg-black/50 p-2 rounded-full"
-      >
-        <FaChevronRight />
-      </button>
-      <button
-        onClick={next}
-        className="absolute left-4 top-1/2 z-30 transform -translate-y-1/2 text-white bg-black/30 hover:bg-black/50 p-2 rounded-full"
-      >
-        <FaChevronLeft />
-      </button>
 
       {/* Dots */}
       <div className="absolute bottom-6 right-0 left-0 flex justify-center gap-2 z-30">

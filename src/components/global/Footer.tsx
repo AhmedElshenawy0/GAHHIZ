@@ -8,12 +8,14 @@ import {
 const Footer = () => {
   return (
     <div
-      className="px-6 md:px-14 py-6 md:py-10 text-gray-800 flex flex-col justify-center text-center gap-4"
+      className="relative px-6 md:px-14 py-6 md:py-10 text-gray-800 flex flex-col justify-center text-center gap-4"
       style={{
         background: "linear-gradient(to right, #dfcfc2, #dfcfc2)",
         direction: "rtl",
       }}
     >
+      <div className="absolute inset-0 bg-[url('/purty-wood.png')] bg-repeat opacity-40 pointer-events-none z-0" />
+
       <button className="flex justify-center border border-white rounded-full w-fit p-1 mx-auto">
         <FaInstagram color="white" />
       </button>
@@ -39,10 +41,10 @@ const Footer = () => {
         <span className="underline cursor-pointer">سياسة الخصوصية</span>
       </p>
 
-      <p className="text-sm text-center text-white">
-        جميع الحقوق محفوظة © <span className="font-medium">الأثاث الحديث</span>{" "}
+      <p className="text-sm text-center font-medium text-white">
+        جميع الحقوق محفوظة © <span className="font-bold">الأثاث الحديث</span>{" "}
         2025 — برمجة وتصميم{" "}
-        <span className="text-white hover:text-gray-200 transition font-bold">
+        <span className="text-white hover:text-gray-200 transition font-extrabold">
           ريكاز
         </span>
       </p>
