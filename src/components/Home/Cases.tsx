@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import MainBtn from "../global/MainBtn";
 
-export default function ShowCase() {
+export default function Cases() {
   const images = ["/bedroom1.webp", "/bedroom2.webp", "/bedroom3.webp"];
 
   return (
