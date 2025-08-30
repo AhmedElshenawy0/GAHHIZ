@@ -1,176 +1,344 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Dialog } from "@headlessui/react";
-import { X } from "lucide-react";
-import { useGetAllProductsQuery } from "../store/api-calls/products-api-call";
+import { useParams } from "react-router-dom";
+import { useState, useMemo } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
-export default function ProductListPage() {
-  const [maxPrice, setMaxPrice] = useState(40000);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+// --- Type Definitions ---
+type Review = {
+  name: string;
+  date: string;
+  rating: number;
+  comment: string;
+};
 
-  const { data, isLoading, error } = useGetAllProductsQuery(undefined);
-  const products = data?.data || [];
+type Product = {
+  id: string;
+  title: string;
+  desc: string;
+  basePrice: number;
+  image: string;
+  images?: string[];
+  reviews?: Review[];
+};
 
-  // استخراج أسماء الفئات
-  const categories = [
-    ...new Set(
-      products
-        .flatMap((p) => p.categories?.map((cat) => cat.name))
-        .filter(Boolean)
-    ),
-  ];
+type TabKey = "details" | "packaging" | "shipping" | "care";
 
-  // تصفية المنتجات حسب السعر والفئة
-  const filteredProducts = products.filter((p) => {
-    const priceMatch = p.price <= maxPrice;
-    const categoryMatch =
-      !selectedCategory ||
-      p.categories?.some((cat) => cat.name === selectedCategory);
-    return priceMatch && categoryMatch;
-  });
+// --- Data ---
+const products: Product[] = [
+  {
+    id: "1",
+    title: "سرير مزدوج فاخر",
+    desc: "استمتع بنوم هادئ ومريح مع هذا السرير المزدوج الفاخر المصنوع من أجود أنواع الخشب والمفروش بأقمشة عالية الجودة. تصميمه العصري يضفي لمسة من الأناقة على غرفة نومك.",
+    basePrice: 24600,
+    image: "/bedroom1.webp",
+    images: ["/bedroom1.webp", "/bedroom2.webp", "/bedroom3.webp"],
+    reviews: [
+      {
+        name: "أحمد حسن",
+        date: "2024-05-12",
+        rating: 4.9,
+        comment:
+          "السرير رائع من حيث الجودة والتصميم. أنصح بشرائه خصوصاً لمن يهتم بالراحة والأناقة.",
+      },
+      {
+        name: "سارة محمود",
+        date: "2024-05-10",
+        rating: 4.7,
+        comment: "مريح جداً وخامة ممتازة. تجربة ممتازة من البداية للنهاية.",
+      },
+    ],
+  },
+  {
+    id: "2",
+    title: "سرير أطفال عصري",
+    desc: "سرير مخصص للأطفال بتصميم آمن وعصري، مثالي لغرفة نوم الأطفال.",
+    basePrice: 15800,
+    image: "/bedroom2.webp",
+  },
+  {
+    id: "3",
+    title: "كنبة استرخاء جلدية",
+    desc: "كنبة جلدية فاخرة توفر أقصى درجات الراحة بتصميم مميز.",
+    basePrice: 9800,
+    image: "/bedroom3.webp",
+  },
+];
 
-  const resetFilters = () => {
-    setMaxPrice(40000);
-    setSelectedCategory("");
-  };
+const colors = ["بيج", "رمادي", "كحلي", "أبيض"];
+const materials = ["خشب طبيعي", "قماش", "معدن"];
+const styles = ["كلاسيكي", "مودرن", "سكندينافي"];
+const sizes = ["مفرد", "مزدوج", "كينج", "كوين"];
 
-  // مكون الفلاتر الجانبي
-  const FilterContent = (
-    <div className="space-y-6">
-      {/* فلتر الفئة */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-600">الفئة</label>
-        <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() =>
-                setSelectedCategory(selectedCategory === cat ? "" : cat)
-              }
-              className={`px-3 py-1 text-sm rounded-full border transition-all duration-200 ${
-                selectedCategory === cat
-                  ? "bg-black text-white border-black"
-                  : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
+export default function ProductPage() {
+  const { id } = useParams<{ id: string }>();
+  const product = products.find((p) => p.id === id);
 
-      {/* فلتر السعر */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-600">السعر حتى</label>
-        <input
-          type="range"
-          min="0"
-          max="40000"
-          step="500"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(Number(e.target.value))}
-          className="w-full accent-black"
-        />
-        <p className="text-xs text-center text-black font-semibold">
-          {maxPrice.toLocaleString()} ج.م
-        </p>
-      </div>
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedMaterial, setSelectedMaterial] = useState(materials[0]);
+  const [selectedStyle, setSelectedStyle] = useState(styles[0]);
+  const [selectedSize, setSelectedSize] = useState(sizes[1]);
+  const [quantity, setQuantity] = useState(1);
+  const [tab, setTab] = useState<TabKey>("details");
+  const [mainImage, setMainImage] = useState(product?.image || "");
 
-      {/* زر إعادة الضبط */}
-      <button
-        onClick={resetFilters}
-        className="text-sm text-gray-400 hover:underline"
-      >
-        إعادة ضبط الفلاتر
-      </button>
-    </div>
+  // --- Refactored Data Structures for Rendering ---
+  const productOptions = useMemo(
+    () => [
+      {
+        label: "اللون",
+        options: colors,
+        selected: selectedColor,
+        setter: setSelectedColor,
+      },
+      {
+        label: "الخامة",
+        options: materials,
+        selected: selectedMaterial,
+        setter: setSelectedMaterial,
+      },
+      {
+        label: "النمط",
+        options: styles,
+        selected: selectedStyle,
+        setter: setSelectedStyle,
+      },
+      {
+        label: "المقاس",
+        options: sizes,
+        selected: selectedSize,
+        setter: setSelectedSize,
+      },
+    ],
+    [selectedColor, selectedMaterial, selectedStyle, selectedSize]
   );
 
+  const tabContent = useMemo(
+    () => ({
+      details: product?.desc,
+      packaging:
+        "يتم تغليف المنتج بعناية باستخدام مواد حماية عالية الجودة لضمان وصوله بأمان.",
+      shipping:
+        "مدة التوصيل من 3 إلى 7 أيام داخل مصر. تشمل الخدمة التركيب في حال تطلب المنتج ذلك.",
+      care: "يفضل تنظيف السطح بقماشة ناعمة مبللة وتجنب استخدام مواد كيميائية قوية.",
+    }),
+    [product?.desc]
+  );
+
+  const tabs: { key: TabKey; label: string }[] = [
+    { key: "details", label: "تفاصيل المنتج" },
+    { key: "packaging", label: "التغليف" },
+    { key: "shipping", label: "الشحن" },
+    { key: "care", label: "العناية" },
+  ];
+
+  if (!product) {
+    return <div className="p-6 text-center text-red-500">المنتج غير موجود</div>;
+  }
+
+  const totalPrice = product.basePrice * quantity;
+  const relatedProducts = products.filter((p) => p.id !== id);
+
   return (
-    <section dir="rtl" className="bg-[#FAFAFA] py-12 px-4 md:px-10">
-      <div className="max-w-7xl mx-auto">
-        {/* زر الفلاتر للجوال */}
-        <div className="md:hidden flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">منتجاتنا</h2>
-          <button
-            onClick={() => setIsFilterOpen(true)}
-            className="text-sm bg-black text-white px-4 py-2 rounded-full"
-          >
-            فلترة
-          </button>
-        </div>
-
-        <Dialog open={isFilterOpen} onClose={() => setIsFilterOpen(false)}>
-          <div className="fixed inset-0 z-50 bg-black/40 flex justify-center items-center p-4">
-            <Dialog.Panel className="bg-white rounded-lg p-6 w-full max-w-md relative">
-              <button
-                className="absolute left-4 top-4 text-gray-500 hover:text-gray-700"
-                onClick={() => setIsFilterOpen(false)}
-              >
-                <X size={20} />
-              </button>
-              <Dialog.Title className="text-lg font-semibold mb-4 text-right">
-                الفلاتر
-              </Dialog.Title>
-              {FilterContent}
-            </Dialog.Panel>
+    <section
+      dir="rtl"
+      className="bg-[var(--main-bg)] py-14 px-4 md:px-10 font-arabic mt-[64px]"
+    >
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
+        {/* Image Gallery */}
+        <div className="flex flex-col gap-6 items-center">
+          <div className="relative w-full aspect-[4/3] bg-gray-100 rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src={mainImage}
+              alt={product.title}
+              className="w-full h-full object-cover transition duration-300 ease-in-out hover:scale-105"
+            />
           </div>
-        </Dialog>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* الفلاتر الثابتة لسطح المكتب */}
-          <aside className="hidden md:flex flex-col p-6 bg-white rounded-lg border border-gray-200 space-y-6 sticky top-6 h-fit">
-            <h4 className="text-lg font-semibold text-gray-800">
-              فلترة المنتجات
-            </h4>
-            {FilterContent}
-          </aside>
-
-          {/* عرض المنتجات */}
-          <main className="md:col-span-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {isLoading ? (
-                <p className="text-center text-gray-500">
-                  جاري تحميل المنتجات...
-                </p>
-              ) : error ? (
-                <p className="text-center text-red-500">
-                  حدث خطأ أثناء تحميل البيانات.
-                </p>
-              ) : filteredProducts.length > 0 ? (
-                filteredProducts.map((prod, idx) => (
-                  <motion.div
-                    key={prod.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-all text-center"
-                  >
-                    <img
-                      src={`http://localhost:1337${prod.image?.url}`}
-                      alt={prod.title}
-                      className="w-full aspect-square object-cover mb-4 rounded-lg"
-                    />
-                    <h4 className="text-lg font-semibold text-gray-900 mb-1">
-                      {prod.title}
-                    </h4>
-                    <p className="text-base font-bold text-black mb-3">
-                      {prod.price.toLocaleString()} ج.م
-                    </p>
-                    <button className="w-full bg-black text-white text-sm font-medium py-2 rounded-full">
-                      أضف إلى السلة
-                    </button>
-                  </motion.div>
-                ))
-              ) : (
-                <p className="text-center text-gray-500 mt-10">
-                  لا توجد منتجات تطابق الفلاتر المختارة.
-                </p>
-              )}
+          {product.images && (
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 justify-center w-full">
+              {product.images.map((img, i) => (
+                <div
+                  key={i}
+                  onClick={() => setMainImage(img)}
+                  className={`rounded-xl overflow-hidden border-2 cursor-pointer transition-all duration-300 ${
+                    mainImage === img
+                      ? "border-[#3A5A40] scale-105 shadow-md"
+                      : "border-transparent hover:shadow-sm hover:opacity-90"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`image ${i + 1}`}
+                    className="w-full h-20 object-cover"
+                  />
+                </div>
+              ))}
             </div>
-          </main>
+          )}
         </div>
+
+        {/* Product Details */}
+        <div className="space-y-6 text-right">
+          <span className="text-xs bg-[#3A5A40] text-white px-3 py-1 rounded-full">
+            سرير
+          </span>
+          <h1 className="text-3xl font-extrabold text-[#2C2C2C]">
+            {product.title}
+          </h1>
+
+          {product.reviews && product.reviews.length > 0 && (
+            <div className="flex items-center gap-2 text-sm text-yellow-600">
+              ⭐ {product.reviews[0].rating}
+              <span className="text-gray-500">
+                ({product.reviews.length} تقييمات)
+              </span>
+            </div>
+          )}
+
+          <div className="flex items-center gap-4">
+            <p className="text-2xl font-bold text-[#2C2C2C]">
+              {Math.round(totalPrice)} ج.م
+            </p>
+            <span className="text-sm text-red-500 line-through">
+              {Math.round(product.basePrice * 1.1)} ج.م
+            </span>
+            <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-xs">
+              خصم 10%
+            </span>
+          </div>
+
+          {/* Product Options */}
+          <div className="space-y-3">
+            {productOptions.map(({ label, options, selected, setter }) => (
+              <div key={label}>
+                <label className="block text-sm text-gray-700 mb-1">
+                  {label}:
+                </label>
+                <div className="flex gap-2 flex-wrap">
+                  {options.map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => setter(opt)}
+                      className={`px-4 py-1.5 border rounded-full text-sm transition font-semibold ${
+                        selected === opt
+                          ? "bg-[#DAD7CD] text-black border-none"
+                          : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                      }`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Quantity Selector */}
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-700">الكمية:</span>
+            <button
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              className="w-8 h-8 bg-gray-200 rounded-full"
+            >
+              -
+            </button>
+            <span className="text-lg font-bold">{quantity}</span>
+            <button
+              onClick={() => setQuantity((q) => q + 1)}
+              className="w-8 h-8 bg-gray-200 rounded-full"
+            >
+              +
+            </button>
+          </div>
+
+          <div className="flex gap-4 mt-4">
+            <button className="bg-[#3A5A40] text-white px-6 py-3 rounded-lg font-bold hover:opacity-90">
+              أضف إلى السلة
+            </button>
+          </div>
+
+          {/* Info Tabs */}
+          <div className="mt-10">
+            <div className="flex gap-4 border-b text-sm">
+              {tabs.map(({ key, label }) => (
+                <button
+                  key={key}
+                  onClick={() => setTab(key)}
+                  className={`pb-2 ${
+                    tab === key
+                      ? "border-b-2 border-[#3A5A40] font-bold"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div className="mt-4 text-sm text-gray-700 leading-relaxed">
+              {tabContent[tab]}
+            </div>
+          </div>
+
+          {/* Specifications */}
+          <div className="mt-6 grid grid-cols-2 gap-4 text-sm text-gray-700">
+            <div>
+              <p className="font-bold">الارتفاع</p>
+              <p>120 سم</p>
+            </div>
+            <div>
+              <p className="font-bold">العرض</p>
+              <p>160 سم</p>
+            </div>
+            <div>
+              <p className="font-bold">الخامة</p>
+              <p>{selectedMaterial}</p>
+            </div>
+            <div>
+              <p className="font-bold">النمط</p>
+              <p>{selectedStyle}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Related Products Slider */}
+      <div className="max-w-7xl mx-auto mt-20">
+        <h2 className="text-2xl font-bold mb-6 text-right">منتجات مشابهة</h2>
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={16}
+          slidesPerView={1}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+          }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          loop={true}
+        >
+          {relatedProducts.map((prod) => (
+            <SwiperSlide key={prod.id}>
+              <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-4">
+                <img
+                  src={prod.image}
+                  alt={prod.title}
+                  className="h-40 w-full object-cover rounded-lg mb-3"
+                />
+                <h4 className="font-bold text-right text-sm mb-1">
+                  {prod.title}
+                </h4>
+                <p className="text-right text-[#3A5A40] text-sm">
+                  {prod.basePrice.toLocaleString("ar-EG")} ج.م
+                </p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );
