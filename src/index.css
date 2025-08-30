@@ -1,8 +1,18 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap");
 
+:root {
+  --main-bg: #f9f6f1;
+  --secondary-color: #dad7cd;
+  --btn-bg: #3a5a40;
+  --title-color: #3a5a40;
+  --subtitle-color: #3a5a40;
+}
+
 body {
   font-family: "Cairo", sans-serif;
+  background-color: var(--main-bg);
+  color: #2c2c2c;
 }
 a {
   text-decoration: none;

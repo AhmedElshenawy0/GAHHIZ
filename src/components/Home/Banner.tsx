@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="relative h-screen bg-[#f3f4f6]">
+    <div className="relative h-screen bg-[var(--main-bg)] font-arabic">
       {/* Background video */}
       <video
         autoPlay
@@ -16,16 +16,22 @@ const Banner = () => {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/50" />
 
-      {/* Centered text */}
-      <div className="relative z-10 flex items-center justify-center h-full px-4 md:px-16 text-center">
-        <div className="text-white font-arabic">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            استكشف غرف النوم الفاخرة
-          </h1>
-          <p className="text-lg md:text-2xl">
-            تشكيلات أنيقة وجودة عالية بأسعار مميزة
-          </p>
-        </div>
+      {/* Centered content */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 md:px-16 text-center text-white">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-snug">
+          استكشف غرف النوم الفاخرة
+        </h1>
+        <p className="text-base sm:text-lg md:text-2xl mb-8">
+          تشكيلات أنيقة وجودة عالية بأسعار مميزة
+        </p>
+
+        {/* CTA Button */}
+        <a
+          href="#"
+          className="bg-[var(--btn-bg)] text-white px-6 py-3 rounded-full font-semibold text-sm sm:text-base shadow-md hover:opacity-90 transition"
+        >
+          اكتشف الآن
+        </a>
       </div>
     </div>
   );

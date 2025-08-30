@@ -9,8 +9,6 @@ import Cases from "../../components/Home/Cases";
 const Home = () => {
   return (
     <div className="bg-[#fefbf9] relative">
-      <div className="absolute inset-0 bg-[url('/wood-pattern.png')] bg-repeat opacity-80 pointer-events-none z-0" />
-
       <Hero />
       <Category />
       <Offers />

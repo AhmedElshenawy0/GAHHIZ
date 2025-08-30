@@ -11,13 +11,12 @@ export default function Promo() {
   return (
     <section
       dir="rtl"
-      className="bg-[#f3f4f6] py-20 px-4 sm:px-8 md:px-16 lg:px-24 font-arabic"
+      className="bg-[var(--main-bg)] py-20 px-4 sm:px-8 md:px-16 lg:px-24 font-arabic"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Desktop layout with split background */}
         <div className="hidden lg:flex mt-20 rounded-xl overflow-hidden shadow-2xl">
           {/* Image Section */}
-          <div className="w-1/2 bg-[#1e1e1e] flex items-center justify-center p-10 relative">
+          <div className="w-1/2 bg-[#3A5A40] flex items-center justify-center p-10 relative">
             <motion.img
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -34,7 +33,7 @@ export default function Promo() {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-3xl font-extrabold text-[#4e342e] mb-4"
+              className="text-3xl font-extrabold text-[var(--btn-bg)] mb-4"
             >
               أريكة مودرن أنيقة
             </motion.h2>
@@ -51,12 +50,42 @@ export default function Promo() {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="list-disc list-inside text-gray-600 space-y-2 text-sm"
+              className="list-disc list-inside text-gray-600 space-y-2 text-sm mb-6"
             >
               {features.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </motion.ul>
+
+            {/* CTA Button */}
+            <motion.a
+              href="#"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block bg-[var(--btn-bg)] text-white text-sm font-semibold px-6 py-3 rounded-full shadow-md transition"
+            >
+              اكتشف المجموعة
+            </motion.a>
+          </div>
+        </div>
+
+        {/* Statistics Bar */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 text-center text-gray-700 text-sm">
+          <div className="bg-white shadow rounded-lg py-4">
+            <p className="text-2xl font-bold text-[var(--btn-bg)]">+10,000</p>
+            <p>عميل سعيد</p>
+          </div>
+          <div className="bg-white shadow rounded-lg py-4">
+            <p className="text-2xl font-bold text-[var(--btn-bg)]">4.8★</p>
+            <p>متوسط التقييم</p>
+          </div>
+          <div className="bg-white shadow rounded-lg py-4">
+            <p className="text-2xl font-bold text-[var(--btn-bg)]">+1,200</p>
+            <p>منتج متاح</p>
+          </div>
+          <div className="bg-white shadow rounded-lg py-4">
+            <p className="text-2xl font-bold text-[var(--btn-bg)]">24/7</p>
+            <p>دعم العملاء</p>
           </div>
         </div>
       </div>

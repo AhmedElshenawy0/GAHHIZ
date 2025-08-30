@@ -36,9 +36,9 @@ export default function Hero() {
   return (
     <div
       dir="rtl"
-      className="relative h-[calc(100vh-150px)] md:min-h-[calc(100vh-36px)] overflow-hidden text-white font-arabic"
+      className="relative h-[calc(100vh-310px)] md:min-h-[calc(100vh-36px)] overflow-hidden text-white font-arabic"
     >
-      {/*Background slider images*/}
+      {/* Background images */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {images.map((img, i) => (
           <div
@@ -68,7 +68,7 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Content*/}
+      {/* Content */}
       <section className="relative z-30 min-h-[85vh] py-10 flex flex-col justify-center items-start pr-6 md:pr-16 text-right">
         <motion.h1
           className="text-3xl md:text-5xl font-extrabold leading-tight mb-6 max-w-xl"
@@ -85,30 +85,19 @@ export default function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          <motion.a
-            href="#"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-black font-semibold px-6 py-2 rounded-full shadow-md transition"
-          >
-            جهّز بيتك بالكامل
-          </motion.a>
-          <motion.a
-            href="#"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-black font-semibold px-6 py-2 rounded-full shadow-md transition"
-          >
-            جهّز غرفة السفرة
-          </motion.a>
-          <motion.a
-            href="#"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-black font-semibold px-6 py-2 rounded-full shadow-md transition"
-          >
-            جهّز غرفة النوم
-          </motion.a>
+          {["جهّز بيتك بالكامل", "جهّز غرفة السفرة", "جهّز غرفة النوم"].map(
+            (text, i) => (
+              <motion.a
+                key={i}
+                href="#"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#3A5A40] text-white font-semibold px-6 py-2 rounded-full shadow-md hover:opacity-90 transition"
+              >
+                {text}
+              </motion.a>
+            )
+          )}
         </motion.div>
       </section>
     </div>

@@ -62,7 +62,7 @@ const products = [
 
 export default function Offers() {
   return (
-    <section dir="rtl" className="w-full bg-[#f3f4f6] text-right font-arabic">
+    <section dir="rtl" className="w-full bg-[#F9F6F1] text-right font-arabic">
       <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-16 py-16">
         {/* Header */}
         <motion.div
@@ -72,10 +72,13 @@ export default function Offers() {
           viewport={{ once: true }}
           className="flex justify-between items-center mb-4"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#2C2C2C]">
             عرض الكبير!
           </h2>
-          <a href="#" className="text-sm text-gray-600 hover:underline">
+          <a
+            href="#"
+            className="text-sm text-[#3A5A40] hover:underline font-semibold"
+          >
             عرض الكل
           </a>
         </motion.div>
@@ -85,7 +88,7 @@ export default function Offers() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-gray-500 mb-10 max-w-xl"
+          className="text-[#555] mb-10 max-w-xl"
         >
           استمتع بخصومات تصل إلى 50٪ مع توصيل فوري
         </motion.p>
@@ -118,24 +121,24 @@ export default function Offers() {
 
                   {/* Discount Badge */}
                   <span
-                    className="absolute top-3 right-3 bg-[#dfcfc2] text-black text-xs font-bold px-3 py-1 rounded-full shadow-sm"
+                    className="absolute top-3 right-3 bg-[#DAD7CD] text-black text-xs font-bold px-3 py-1 rounded-full shadow-sm"
                     dir="ltr"
                   >
                     {product.discount}
                   </span>
 
                   {/* CTA Button */}
-                  <button className="absolute bottom-4 right-4 bg-[#8D6E63] text-white text-sm font-semibold px-4 py-2 rounded-full opacity-0 translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shadow-md">
+                  <button className="absolute bottom-4 right-4 bg-[#3A5A40] text-white text-sm font-semibold px-4 py-2 rounded-full opacity-0 translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shadow-md">
                     أضف الآن
                   </button>
                 </div>
 
                 {/* Info */}
                 <div className="p-3 flex flex-col gap-1">
-                  <h3 className="text-sm font-semibold truncate">
+                  <h3 className="text-sm font-semibold text-[#2C2C2C] truncate">
                     {product.title}
                   </h3>
-                  <p className="text-sm text-gray-900" dir="ltr">
+                  <p className="text-sm text-[#2C2C2C]" dir="ltr">
                     {product.price}
                     <span className="line-through text-gray-400 text-xs mr-2">
                       {product.originalPrice}

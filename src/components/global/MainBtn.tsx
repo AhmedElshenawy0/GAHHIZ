@@ -8,7 +8,7 @@ const MainBtn = ({ text }: { text: string }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.3 }}
       viewport={{ once: true }}
-      className="bg-amber-600 hover:bg-amber-700 transition-all duration-300 text-white font-bold px-10 py-3 rounded-full shadow-lg"
+      className="bg-[#3A5A40] text-white px-6 py-2 rounded-full hover:opacity-90 transition"
     >
       {text}
     </motion.button>
