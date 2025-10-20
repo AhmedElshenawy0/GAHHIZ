@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
 // Import Swiper styles
-import "swiper/css";
+// import "swiper/css";
 
 // --- Type Definitions ---
 // Define the structure for a single review

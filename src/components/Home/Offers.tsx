@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
+import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -61,6 +62,7 @@ const products = [
 ];
 
 export default function Offers() {
+  const navigate = useNavigate();
   return (
     <section dir="rtl" className="w-full bg-[#F9F6F1] text-right font-arabic">
       <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-16 py-16">
@@ -109,7 +111,8 @@ export default function Offers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group flex flex-col bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
+                onClick={() => navigate("products/1")}
+                className="group cursor-pointer flex flex-col bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300"
               >
                 {/* Image + CTA */}
                 <div className="relative w-full aspect-[4/3] overflow-hidden">

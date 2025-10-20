@@ -1,8 +1,8 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"); */
 
 :root {
-  --main-bg: #f9f6f1;
+  /* --main-bg: #f9f6f1; */
   --secondary-color: #dad7cd;
   --btn-bg: #3a5a40;
   --title-color: #3a5a40;

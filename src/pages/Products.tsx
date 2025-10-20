@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import "swiper/css";
+// import "swiper/css";
 
 // --- Type Definitions ---
 type Review = {
